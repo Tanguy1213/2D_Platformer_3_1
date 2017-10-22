@@ -4,15 +4,6 @@
 
 #include <Box2D/Box2D.h>
 
-struct body
-{
-	b2BodyDef DEF;
-	b2PolygonShape SHAPE;
-	b2FixtureDef FIX;
-	b2Body * BOD;
-	sf::RectangleShape RECT;
-};
-
 int main()
 {
 
@@ -97,14 +88,30 @@ int main()
 
 		b2Vec2 vel = m_body->GetLinearVelocity();
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		if (event.type == sf::Event::KeyPressed)
 		{
-			vel.x = -50.0f;
+			if (event.key.code == sf::Keyboard::Left)
+			{
+				vel.x = -50.f;
+			}
+			if (event.key.code == sf::Keyboard::Right)
+			{
+				vel.x = 50.f;
+			}
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+
+		if (event.type == sf::Event::KeyReleased)
 		{
-			vel.x = 50.0f;
+			if (event.key.code == sf::Keyboard::Left)
+			{
+				vel.x = -0.f;
+			}
+			if (event.key.code == sf::Keyboard::Right)
+			{
+				vel.x = 0.f;
+			}
 		}
+
 		window.clear();
 
 		m_body->SetLinearVelocity(vel);
