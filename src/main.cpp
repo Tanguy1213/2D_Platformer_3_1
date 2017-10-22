@@ -11,7 +11,7 @@ int main()
 
 	b2World* myWorld = new b2World(gravity);
 
-	sf::RenderWindow window(sf::VideoMode(800, 600), "2D Platformer!");
+	sf::RenderWindow window(sf::VideoMode(1800, 600), "2D Platformer!");
 	window.setFramerateLimit(60.f);
 
 
@@ -20,8 +20,8 @@ int main()
 	int32 positionIterations = 3;   //how strongly to correct position
 
 
-	//PLAYER
-	sf::RectangleShape sh_character(sf::Vector2f(100, 100));
+									//PLAYER
+	sf::RectangleShape sh_character(sf::Vector2f(70, 70));
 	sh_character.setOrigin(0, 0);
 	sh_character.setFillColor(sf::Color::Blue);
 
@@ -30,7 +30,7 @@ int main()
 	m_bodyDef.type = b2_dynamicBody;
 
 	b2PolygonShape m_bodyShape;
-	m_bodyShape.SetAsBox(50.0f, 50.0f);
+	m_bodyShape.SetAsBox(35.0f, 35.0f);
 
 	b2FixtureDef m_bodyFix;
 	m_bodyFix.shape = &m_bodyShape;
@@ -41,7 +41,7 @@ int main()
 	m_body->CreateFixture(&m_bodyFix);
 
 	//GROUND
-	sf::RectangleShape ground1(sf::Vector2f(300, 25));
+	sf::RectangleShape ground1(sf::Vector2f(200, 25));
 	ground1.setOrigin(0, 0);
 	ground1.setFillColor(sf::Color(200, 75, 20, 255));
 
@@ -50,7 +50,7 @@ int main()
 	m_ground1.type = b2_staticBody;
 
 	b2PolygonShape m_groundShape;
-	m_groundShape.SetAsBox(260.f, 50.f);
+	m_groundShape.SetAsBox(162.f, 35.f);
 
 
 	b2FixtureDef m_groundFix;
@@ -110,6 +110,10 @@ int main()
 			{
 				vel.x = 0.f;
 			}
+		}
+		if (event.type == sf::Event::KeyPressed)
+		{
+			if ()
 		}
 
 		window.clear();
