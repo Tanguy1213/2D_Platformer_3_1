@@ -4,7 +4,7 @@
 
 #include <Box2D/Box2D.h>
 
-void draw(sf::RenderWindow& window, sf::Sprite background, sf::Text text, sf::RectangleShape sh_character, sf::RectangleShape ground1,
+void draw(sf::RenderWindow& window, sf::Sprite background, sf::Text text, sf::Sprite sh_character, sf::RectangleShape ground1,
 	sf::RectangleShape ground2, sf::RectangleShape ground3, sf::RectangleShape ground4)
 {
 
@@ -31,7 +31,7 @@ int main()
 	//DEATH TEXT
 	sf::Font font;
 	sf::Text text;
-	font.loadFromFile("../data/ARDESTINE.ttf");
+	font.loadFromFile("data/ARDESTINE.ttf");
 
 	float32 timeStep = 1 / 30.0;    //the length of time passed to simulate (seconds)
 	int32 velocityIterations = 8;   //how strongly to correct velocity
@@ -39,17 +39,18 @@ int main()
 
 	//BACKGROUND
 	sf::Texture texture;
-	texture.loadFromFile("../data/Space001.png");
+	texture.loadFromFile("data/Space001.png");
 	texture.setRepeated(true);
 
 	sf::Sprite background;
 	background.setTexture(texture);
 
 	//PLAYER
-	sf::RectangleShape sh_character(sf::Vector2f(70, 70));
+	sf::Texture box_texture;
+	box_texture.loadFromFile("data/RTS_Crate.png");
+	sf::Sprite sh_character(box_texture);
 	sh_character.setOrigin(0, 0);
-	sh_character.setFillColor(sf::Color::Blue);
-
+	sh_character.setScale(0.14f, 0.14f);
 	b2BodyDef m_bodyDef;
 	m_bodyDef.position.Set(0, 350);
 	m_bodyDef.type = b2_dynamicBody;
@@ -224,6 +225,11 @@ int main()
 
 		}
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			window.close();
+		}
+
 		else if (event.type == sf::Event::KeyReleased && (Is_grounded == false) &&
 			(m_body->GetPosition().y > 425.f) &&
 			(m_body->GetPosition().y < 430.f) &&
@@ -265,7 +271,7 @@ int main()
 
 
 			text.setFont(font);
-			text.setString("You died, try again !");
+			text.setString("You died, try again !\nPress Space to exit !");
 			text.setPosition(500.f, 100.f);
 			text.setColor(sf::Color::Red);
 			text.setCharacterSize(50.f);
@@ -278,7 +284,7 @@ int main()
 	}
 
 	delete myWorld;
-	system("pause");
+
 	return EXIT_SUCCESS;
 
 }
